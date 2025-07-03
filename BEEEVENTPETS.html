@@ -16,17 +16,16 @@
     }
 
     body {
-    margin: 0;
-    font-family: 'Fredoka One', cursive;
-    background: 
-      url('forest2.gif') no-repeat center center fixed,
-      linear-gradient(135deg, #eafaf1, #fdf5c9);
-    background-size: cover, cover;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-    padding-top: 70px; /* ✅ Fix: pushes content below navbar */
-  }
+      margin: 0;
+      font-family: 'Fredoka One', cursive;
+      background: 
+  url('forest2.gif') no-repeat center center fixed,
+  linear-gradient(135deg, #eafaf1, #fdf5c9);
+background-size: cover, cover;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
 
 
 
@@ -213,19 +212,6 @@
 </head>
 <body>
   <div class="sparkles"></div>
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('.nav-link');
-    const currentPath = window.location.pathname.split('/').pop();
-
-    links.forEach(link => {
-      const linkPath = link.getAttribute('href');
-      if (linkPath === currentPath) {
-        link.classList.add('active');
-      }
-    });
-  });
-</script>
 
   <nav class="navbar">
     <div class="nav-links">
@@ -233,41 +219,30 @@
       <a href="NIGHTPETS.html" class="nav-link">NIGHT PETS</a>
       <a href="BEEEVENTPETS.html" class="nav-link">BEE EVENT PETS</a>
       <a href="SUMMERPETS.html" class="nav-link">SUMMER PETS</a>
+      <a href="OTHERS.html" class="nav-link">OTHERS</a>
     </div>
   </nav>
 
   <h1>BEE EVENT PETS</h1>
   <div class="container">
 
-<!-- CARDS -->
-<script>
-  const pets = [
-    "Beee", "HoneyBee", "Bearbeee1", "Petalbee", "Queen_bee", "The_Wasp",
-    "The_Tarantula_Hawk", "Moth", "Thy_Butterfly_V2", "DiscoBeeIcon-2"
-  ];
-
-  const container = document.querySelector('.container');
-
-  pets.forEach((name, index) => {
-    container.innerHTML += `
-    <div class="card">
-      <div class="hover-info">
-        <div class="hover-text">Loading...</div>
-        <div class="stock-text">Loading...</div>
-      </div>
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="PETBG.png" />
-          <img src="BEEPETS/${name}.webp" class="overlay" />
-        </div>
-      </div>
-    </div>`;
-  });
-</script>
 
 </div>
 
 <script>
+  // Navigation active link highlight
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname.split('/').pop();
+    links.forEach(link => {
+      const linkPath = link.getAttribute('href');
+      if (linkPath === currentPath) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Sparkle background animation
   for (let i = 0; i < 30; i++) {
     const sparkle = document.createElement('div');
     sparkle.className = 'sparkle';
@@ -278,21 +253,42 @@
     document.querySelector('.sparkles').appendChild(sparkle);
   }
 
-  const stockCounts = [6, 2, 0, 8, 0, 4, 1, 9, 0, 0];
+  // 🐝 Unified pet data (image + stock)
+  const petItems = [
+    { name: "Beee", stock: 5 },
+    { name: "HoneyBee", stock: 2 },
+    { name: "Bearbeee1", stock: 0 },
+    { name: "Petalbee", stock: 8 },
+    { name: "Queen_bee", stock: 0 },
+    { name: "The_Wasp", stock: 4 },
+    { name: "The_Tarantula_Hawk", stock: 1 },
+    { name: "Moth", stock: 9 },
+    { name: "Thy_Butterfly_V2", stock: 0 },
+    { name: "DiscoBeeIcon-2", stock: 0 }
+  ];
 
-  document.querySelectorAll('.card').forEach((card, index) => {
-    const hoverText = card.querySelector('.hover-text');
-    const stockText = card.querySelector('.stock-text');
-    const stock = stockCounts[index];
+  const container = document.querySelector('.container');
 
-    if (stock > 0) {
-      hoverText.textContent = 'AVAILABLE';
-      stockText.textContent = `${stock} in stock`;
-      stockText.style.display = 'block';
-    } else {
-      hoverText.textContent = 'UNAVAILABLE';
-      stockText.style.display = 'none';
-    }
+  petItems.forEach(pet => {
+    const isAvailable = pet.stock > 0;
+    const hoverStatus = isAvailable ? 'AVAILABLE' : 'UNAVAILABLE';
+    const stockText = isAvailable ? `${pet.stock} in stock` : '';
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="hover-info">
+        <div class="hover-text" style="color: ${isAvailable ? '#222' : 'red'}">${hoverStatus}</div>
+        <div class="stock-text" style="display: ${isAvailable ? 'block' : 'none'}">${stockText}</div>
+      </div>
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="PETBG.png" />
+          <img src="BEEPETS/${pet.name}.webp" class="overlay" />
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
   });
 </script>
 
