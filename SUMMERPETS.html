@@ -19,12 +19,13 @@
       margin: 0;
       font-family: 'Fredoka One', cursive;
       background: 
-  url('forest2.gif') no-repeat center center fixed,
-  linear-gradient(135deg, #eafaf1, #fdf5c9);
-background-size: cover, cover;
+        url('forest2.gif') no-repeat center center fixed,
+        linear-gradient(135deg, #eafaf1, #fdf5c9);
+      background-size: cover, cover;
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
+      padding-top: 70px; /* ✅ Fix: pushes content below navbar */
     }
 
     .sparkle {
